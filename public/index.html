@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
@@ -25,10 +26,26 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+		
   </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+  <body class="is-preload">
+    
+
+      <!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="https://github.com/Alfred-Walker/account-sharing-app" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="studio.alfred.walker@gmail.com" class="icon fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; Alfred Walker, 2021.</li><li>Credits: <a>Unsplash</a> + <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</footer>
+
+      <!-- Scripts -->
+			<script src="assets/js/main.js"></script>
+
+    <div class="is-preload" id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

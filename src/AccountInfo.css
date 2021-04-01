@@ -1,0 +1,51 @@
+#namer {
+    margin-bottom: 16px;
+}
+
+#time { 
+    width:100%;
+    border:1px solid black;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    
+    border: 4;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 0px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+
+    font-family: "Roboto", sans-serif;
+    font-size: 16pt;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.65em; 
+    color:darkslategrey;
+}
+
+.blue {
+    background-color: hsl(225, 73%, 57%);   
+}
+
+.blue:hover {
+    background-color: hsl(225, 73%, 62%);
+}
+
+.blue:active {
+    background-color: hsl(225, 73%, 52%);
+}
+
+.red {
+    background-color: hsl(0, 53%, 58%);
+}
+
+.red:hover {
+    background-color: hsl(0, 53%, 63%);
+}
+
+.red:active {
+    background-color: hsl(0, 53%, 53%);
+}
