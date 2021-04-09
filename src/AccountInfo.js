@@ -1,7 +1,9 @@
+import 'react-phone-input-2/lib/style.css'
 import './AccountInfo.css';
 import moment from 'moment';
 import 'moment/locale/ko';
-import { useState } from 'react';
+import PhoneInput from 'react-phone-input-2'
+import { useRef, useState } from 'react';
 
 function AccountInfo() {
     const [account, setAccount] = useState('');
@@ -11,14 +13,107 @@ function AccountInfo() {
 
     var now = moment().format('HH:mm');
     const [requestEndTime, setRequestEndTime] = useState(now);
-    const [isOccupiedMsgVisible, setIsOccupiedMsgVisible] = useState('');
-    const [isReleaseMsgVisible, setIsReleaseMsgVisible] = useState('');
-    const [isErrorMsgVisible, setIsErrorMsgVisible] = useState('');
 
-    const DEFAULT_ERROR = "현재 서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.";
-    const EMPTY_STRING_ERROR = "사용자 이름을 입력해주세요.";
+    // label visibilities
+    const [startErrorVisible, setStartErrorVisible] = useState('');
 
-    const [errorMsg, setErrorMsg] = useState(DEFAULT_ERROR);
+    const [occupySuccessVisible, setOccupySuccessVisible] = useState('');
+    const [occupyErrorVisible, setOccupyErrorVisible] = useState('');
+
+    const [releaseSuccessVisible, setReleaseSuccessVisible] = useState('');
+    const [releaseErrorVisible, setReleaseErrorVisible] = useState('');
+
+    const [alarmSuccessVisible, setAlarmSuccessVisible] = useState('');
+    const [alarmErrorVisible, setAlarmErrorVisible] = useState('');
+
+
+    // default error messages
+    const DEFAULT_ERROR = "현재 서버에 연결할 수 없습니다.";
+    const EMPTY_USER_ERROR = "사용자 이름을 입력해주세요.";
+    const EMPTY_PHONE_ERROR = "문자를 받으실 번호를 입력해주세요.";
+
+    const [startError, setStartError] = useState(DEFAULT_ERROR);
+    const [occupyError, setOccupyError] = useState(DEFAULT_ERROR);
+    const [releaseError, setReleaseError] = useState(DEFAULT_ERROR);
+    const [alarmError, setAlarmError] = useState(DEFAULT_ERROR);
+
+    const [country, setCountry] = useState('kr');
+    const [phoneNumber, setPhoneNumber] = useState('');
+
+    // reference for phone number
+    const phoneNumberRef = useRef();
+
+    function onStartError() {
+        setStartErrorVisible(true);
+    }
+
+    function onOccupyError(message) {
+        setOccupyError(message);
+
+        // hide start error
+        setStartErrorVisible(false);
+
+        // show occupy error
+        setOccupyErrorVisible(true);
+        setOccupySuccessVisible(false);
+
+        // hide release error/success
+        setReleaseErrorVisible(false);
+        setReleaseSuccessVisible(false);
+    }
+
+    function onOccupySuccess() {
+        // hide start error
+        setStartErrorVisible(false);
+
+        // show occupy success
+        setOccupyErrorVisible(false);
+        setOccupySuccessVisible(true);
+
+        // hide release error/success
+        setReleaseErrorVisible(false);
+        setReleaseSuccessVisible(false);
+    }
+
+    function onReleaseError(message) {
+        setReleaseError(message);
+
+        // hide start error
+        setStartErrorVisible(false);
+
+        // hide occupy error/success
+        setOccupyErrorVisible(false);
+        setOccupySuccessVisible(false);
+
+        // show release error
+        setReleaseErrorVisible(true);
+        setReleaseSuccessVisible(false);
+    }
+
+    function onReleaseSuccess() {
+        // hide start error
+        setStartErrorVisible(false);
+
+        // hide occupy error/success
+        setOccupyErrorVisible(false);
+        setOccupySuccessVisible(false);
+
+        // show release success
+        setReleaseErrorVisible(false);
+        setReleaseSuccessVisible(true);
+    }
+
+    function onAlarmError(message) {
+        setAlarmError(message);
+
+        setAlarmErrorVisible(true);
+        setAlarmSuccessVisible(false);
+    }
+
+    function onAlarmSuccess() {
+        setAlarmErrorVisible(false);
+        setAlarmSuccessVisible(true);
+    }
 
     fetch('https://1zwse7h675.execute-api.ap-northeast-2.amazonaws.com/default/accountsharing/')
         .then(response => response.json())
@@ -27,7 +122,7 @@ function AccountInfo() {
             setCurrentOccupier(result.occupier);
             setEndTime(result.endtime);
         })
-        .catch(error => setIsErrorMsgVisible(true));
+        .catch(error => onStartError());
 
     function onNameChange(event) {
         setNewOccupier(event.target.value);
@@ -51,10 +146,7 @@ function AccountInfo() {
         event.preventDefault();
 
         if (newOccupier == "") {
-                setErrorMsg(EMPTY_STRING_ERROR);
-                setIsReleaseMsgVisible(false);
-                setIsOccupiedMsgVisible(false);
-                setIsErrorMsgVisible(true);
+            onOccupyError(EMPTY_USER_ERROR);
             return;
         }
 
@@ -71,6 +163,7 @@ function AccountInfo() {
         )
             .then(response => {
                 if (response.ok) {
+                    throw new Error(response.error);
                     return response.json();
                 }
                 else {
@@ -88,16 +181,10 @@ function AccountInfo() {
                 setCurrentOccupier(result.occupier);
                 setNewOccupier("");
 
-                // set message visible/invisible
-                setIsReleaseMsgVisible(false);
-                setIsOccupiedMsgVisible(true);
-                setIsErrorMsgVisible(false);
+                onOccupySuccess();
             })
             .catch(error => {
-                setErrorMsg(error.message);
-                setIsReleaseMsgVisible(false);
-                setIsOccupiedMsgVisible(false);
-                setIsErrorMsgVisible(true);
+                onOccupyError(DEFAULT_ERROR);
             });
     }
 
@@ -124,23 +211,66 @@ function AccountInfo() {
                 setCurrentOccupier(result.occupier);
                 setEndTime(result.endtime);
                 setNewOccupier("");
-                //setRequestEndTime();
-                setIsReleaseMsgVisible(true);
-                setIsOccupiedMsgVisible(false);
-                setIsErrorMsgVisible(false);
+
+                onReleaseSuccess();
             })
             .catch(error => {
-                setErrorMsg(error);
-                setIsReleaseMsgVisible(false);
-                setIsOccupiedMsgVisible(false);
-                setIsErrorMsgVisible(true);
+                onReleaseError(DEFAULT_ERROR);
             });
+    }
+
+    function onSubmitPhoneNumber(event) {
+        event.preventDefault();
+
+        if (phoneNumber == "" || phoneNumber == phoneNumberRef.current.state.selectedCountry.countryCode) {
+            // console.log(phoneNumberRef.current.state);
+            onAlarmError(EMPTY_PHONE_ERROR);
+            return;
+        }
+
+        fetch(
+            ' https://1zwse7h675.execute-api.ap-northeast-2.amazonaws.com/default/accountsharing/alarm', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset="utf-8"' },
+            body: JSON.stringify(
+                {
+                    number: phoneNumber.replace(new RegExp(phoneNumberRef.current.state.selectedCountry.countryCode, 'g'), ''),
+                    country: phoneNumberRef.current.state.selectedCountry.iso2,
+                }),
+        }
+        )
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                else {
+                    throw new Error(response.error);
+                }
+            }
+            )
+            .then(result => {
+                onAlarmSuccess();
+            })
+            .catch(error => {
+                console.log(error);
+                onAlarmError(DEFAULT_ERROR);
+            });
+
+        // console.log(phoneNumber);
+        // console.log(phoneNumberRef.current.state.selectedCountry.countryCode);
+        // console.log(phoneNumberRef.current.state.selectedCountry.iso2);
+        // console.log(phoneNumber.replace(new RegExp(phoneNumberRef.current.state.selectedCountry.countryCode, 'g'), ''));
     }
 
     return (
         <div>
             <header id="header">
                 <h1 id="account">{account}</h1>
+                <link
+                    rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+                />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
             </header>
 
             {
@@ -165,19 +295,48 @@ function AccountInfo() {
 
             <form>
                 {
-                    isOccupiedMsgVisible ? <div className="message success visible">{endTime} 까지 성공적으로 예약되었습니다.</div> : ""
+                    occupySuccessVisible ? <div className="message success visible">{endTime} 까지 예약되었습니다.</div> : ""
                 }
                 {
-                    isReleaseMsgVisible ? <div className="message success visible">접속을 종료했습니다.</div> : ""
+                    releaseSuccessVisible ? <div className="message success visible">접속을 종료했습니다.</div> : ""
                 }
                 {
-                    isErrorMsgVisible ? <div className="message failure visible">{errorMsg}</div> : ""
+                    startErrorVisible ? <div className="message failure visible">{startError}</div> : ""
                 }
-
-                <div className="message">""</div>
-
+                {
+                    occupyErrorVisible ? <div className="message failure visible">{occupyError}</div> : ""
+                }
+                {
+                    releaseErrorVisible ? <div className="message failure visible">{releaseError}</div> : ""
+                }
+            </form>
+            <hr className="solid"></hr>
+            <div className="message visible">계정 사용 가능 알림</div>
+            <PhoneInput
+                ref={phoneNumberRef}
+                id="CustomPhoneInput"
+                country={country}
+                onlyCountries={[country]}
+                disableDropdown={true}
+                countryCodeEditable={false}
+                value={phoneNumber}
+                onChange={setPhoneNumber} />
+            <form>
+                <div className="message visible">해당 번호로 문자 알림을 받습니다.</div>
             </form>
 
+            <form id="signup-form">
+                <button className="blue" type="button" id="useBtn" onClick={onSubmitPhoneNumber} >알림 신청</button>
+            </form>
+
+            <form>
+                {
+                    alarmSuccessVisible ? <div className="message success visible">알림을 설정했습니다.</div> : ""
+                }
+                {
+                    alarmErrorVisible ? <div className="message failure visible">{alarmError}</div> : ""
+                }
+            </form>
         </div>
     );
 }

@@ -49,3 +49,35 @@
 .red:active {
     background-color: hsl(0, 53%, 53%);
 }
+
+.form-control{
+    width:100%  !important;
+    height:100% !important;
+    border:1px solid black;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    
+    border: 4  !important;
+    border-radius: 4px  !important;
+    padding: 8px;
+    margin-top: 0px;
+    -moz-appearance: none  !important;
+    -webkit-appearance: none  !important;
+    -ms-appearance: none  !important;
+    appearance: none  !important;
+
+    font-family: "Roboto", sans-serif;
+    font-size: 16pt  !important;
+    font-weight: 400  !important;
+    letter-spacing: -0.01em  !important;
+    line-height: 1.65em  !important;
+    color:darkslategrey  !important;
+}
+
+
+.react-tel-input {
+    margin-top: 16px !important;
+    margin-bottom: 0px !important;
+    margin-left: 0;
+}
