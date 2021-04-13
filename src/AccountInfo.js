@@ -163,7 +163,6 @@ function AccountInfo() {
         )
             .then(response => {
                 if (response.ok) {
-                    throw new Error(response.error);
                     return response.json();
                 }
                 else {
