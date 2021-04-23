@@ -286,19 +286,19 @@ function AccountInfo() {
 
             <form id="profile-form">
                 <button id="bc-btn" type="button" profile="BC" className="profile-btn" onClick={onProfileSelect}>
-                    <img id="bc-img" profile="BC" src="/profile/bc.png" />
+                    <img id="bc-img" profile="BC" src="images/profile/bc.png" alt="profile"/>
                 </button>
 
                 <button id="dp-btn" type="button" profile="DP" className="profile-btn" onClick={onProfileSelect}>
-                    <img id="dp-img" profile="DP" src="/profile/dp.png" />
+                    <img id="dp-img" profile="DP" src="images/profile/dp.png" alt="profile"/>
                 </button>
 
                 <button id="ac-btn" type="button" profile="AC" className="profile-btn" onClick={onProfileSelect}>
-                    <img id="ac-img" profile="AC" src="/profile/ac.png" />
+                    <img id="ac-img" profile="AC" src="images/profile/ac.png" alt="profile"/>
                 </button>
 
                 <button id="aw-btn" type="button" profile="AW" className="profile-btn" onClick={onProfileSelect}>
-                    <img id="aw-img" profile="AW" src="/profile/aw.jpg" />
+                    <img id="aw-img" profile="AW" src="images/profile/aw.jpg" alt="profile"/>
                 </button>
             </form>
 
