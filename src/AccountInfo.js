@@ -261,6 +261,11 @@ function AccountInfo() {
         // console.log(phoneNumber.replace(new RegExp(phoneNumberRef.current.state.selectedCountry.countryCode, 'g'), ''));
     }
 
+    function onProfileSelect(event) {
+        event.preventDefault();
+        setNewOccupier(event.target.getAttribute('profile'));
+    }
+
     return (
         <div>
             <header id="header">
@@ -278,6 +283,24 @@ function AccountInfo() {
                     : <p id="current-status">현재 <strong>{currentOccupier}</strong> 님이 접속 중입니다.
                         <br />접속 종료 예정: <strong>{endTime}</strong></p>
             }
+
+            <form id="profile-form">
+                <button id="bc-btn" type="button" profile="BC" className="profile-btn" onClick={onProfileSelect}>
+                    <img id="bc-img" profile="BC" src="/profile/bc.png" />
+                </button>
+
+                <button id="dp-btn" type="button" profile="DP" className="profile-btn" onClick={onProfileSelect}>
+                    <img id="dp-img" profile="DP" src="/profile/dp.png" />
+                </button>
+
+                <button id="ac-btn" type="button" profile="AC" className="profile-btn" onClick={onProfileSelect}>
+                    <img id="ac-img" profile="AC" src="/profile/ac.png" />
+                </button>
+
+                <button id="aw-btn" type="button" profile="AW" className="profile-btn" onClick={onProfileSelect}>
+                    <img id="aw-img" profile="AW" src="/profile/aw.jpg" />
+                </button>
+            </form>
 
             <form>
                 <input type="text" id="namer" required pattern="[a-zA-Z0-9\s]+" value={newOccupier} placeholder="새 사용자 이름" onChange={onNameChange} />
