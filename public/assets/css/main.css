@@ -78,7 +78,6 @@ html {
   box-sizing: inherit; }
 
 html, body {
-  height: 100%;
   overflow-x: hidden;
   width: 100%; }
   @media screen and (max-height: 640px) {
@@ -95,11 +94,11 @@ body {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  background-color: #000;
   -moz-justify-content: center;
   -webkit-justify-content: center;
   -ms-justify-content: center;
   justify-content: center;
-  background-color: #000;
   padding: 6em 4em 4em 4em; }
   body.is-preload *, body.is-preload *:before, body.is-preload *:after {
     -moz-animation: none !important;
@@ -109,7 +108,9 @@ body {
     -moz-transition: none !important;
     -webkit-transition: none !important;
     -ms-transition: none !important;
-    transition: none !important; }
+    transition: none !important; 
+    margin: auto;
+  }
   body > * {
     position: relative;
     z-index: 2; }
@@ -121,7 +122,7 @@ body {
       padding: 5em 2em 2em 2em; } }
   @media screen and (max-width: 360px) {
     body {
-      padding: 5em 1.25em 1.25em 1.25em; } }
+      padding: 5em 1em 1em 1em; } }
 
 /* BG */
 #bg {
@@ -351,6 +352,10 @@ hr {
     margin: 3em 0; }
 
 /* Section/Article */
+section {
+  scroll-snap-type: unset;
+}
+
 section.special, article.special {
   text-align: center; }
 
@@ -840,11 +845,12 @@ button,
   -webkit-transition: opacity 0.5s ease-in-out;
   -ms-transition: opacity 0.5s ease-in-out;
   transition: opacity 0.5s ease-in-out;
-  bottom: 4em;
+  height: 4em;
+  top: 1em;
   color: rgba(255, 255, 255, 0.5);
-  left: 4em;
+  left: 0em;
   opacity: 0.5;
-  position: absolute; }
+  }
   #footer .icons {
     margin: 0 0 0.5em 0; }
   #footer .copyright {
@@ -869,16 +875,16 @@ button,
     margin-bottom: 0; }
   @media screen and (max-width: 1680px) {
     #footer {
-      bottom: 3.5em;
-      left: 3.5em; } }
+      top: 1em;
+      left: 0em; } }
   @media screen and (max-width: 736px) {
     #footer {
-      bottom: 2em;
-      left: 2em; } }
+      top: 1em;
+      left: 0em; } }
   @media screen and (max-width: 360px) {
     #footer {
-      bottom: 1.25em;
-      left: 1.25em; } }
+      top: 1em;
+      left: 0em; } }
   @media screen and (max-height: 640px) {
     #footer {
       bottom: auto;

@@ -279,7 +279,7 @@ function AccountInfo() {
 
             {
                 currentOccupier === "" ?
-                    <p id="current-status">아직 아무도 계정에 접속하지 않았습니다.<br />&nbsp;</p>
+                    <p id="current-status">아무도 계정에 접속하지 않았습니다.<br />&nbsp;</p>
                     : <p id="current-status">현재 <strong>{currentOccupier}</strong> 님이 접속 중입니다.
                         <br />접속 종료 예정: <strong>{endTime}</strong></p>
             }
