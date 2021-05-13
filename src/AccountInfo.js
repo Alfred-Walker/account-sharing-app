@@ -286,19 +286,39 @@ function AccountInfo() {
 
             <form id="profile-form">
                 <button id="bc-btn" type="button" profile="BC" className="profile-btn" onClick={onProfileSelect}>
-                    <img id="bc-img" profile="BC" src="images/profile/bc.png" alt="profile"/>
+                    <img id="bc-img" profile="BC" src="images/profile/bc.png" alt="profile" />
+                    {
+                        currentOccupier === "BC" ?
+                            <div><img id="bc-crown" className="profile-crown" src="images/crown.png"></img></div>
+                            : ""
+                    }
                 </button>
 
                 <button id="dp-btn" type="button" profile="DP" className="profile-btn" onClick={onProfileSelect}>
-                    <img id="dp-img" profile="DP" src="images/profile/dp.png" alt="profile"/>
+                    <img id="dp-img" profile="DP" src="images/profile/dp.png" alt="profile" />
+                    {
+                        currentOccupier === "DP" ?
+                            <div><img id="bc-crown" className="profile-crown" src="images/crown.png"></img></div>
+                            : ""
+                    }
                 </button>
 
                 <button id="ac-btn" type="button" profile="AC" className="profile-btn" onClick={onProfileSelect}>
-                    <img id="ac-img" profile="AC" src="images/profile/ac.png" alt="profile"/>
+                    <img id="ac-img" profile="AC" src="images/profile/ac.png" alt="profile" />
+                    {
+                        currentOccupier === "AC" ?
+                            <div><img id="bc-crown" className="profile-crown" src="images/crown.png"></img></div>
+                            : ""
+                    }
                 </button>
 
                 <button id="aw-btn" type="button" profile="AW" className="profile-btn" onClick={onProfileSelect}>
-                    <img id="aw-img" profile="AW" src="images/profile/aw.jpg" alt="profile"/>
+                    <img id="aw-img" profile="AW" src="images/profile/aw.jpg" alt="profile" />
+                    {
+                        currentOccupier === "AW" ?
+                            <div><img id="bc-crown" className="profile-crown" src="images/crown.png"></img></div>
+                            : ""
+                    }
                 </button>
             </form>
 

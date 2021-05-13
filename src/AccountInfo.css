@@ -126,6 +126,14 @@
 }
 
 
+.profile-crown {
+    position: relative;
+    top: -100px;
+    width: 32px    !important;
+    height: 32px   !important;
+}
+
+
 #dp-img:hover {
     border: 4px solid red;
     transition: 0.0s;
